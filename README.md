@@ -65,8 +65,7 @@ GET : Get all the user info here
 
 GET : GET a user by id
 PUT : update a user by their id
-
-### DELETE : Delete the user by that particular id(check that he/she still have issued book and check on the fines to be paid by him /her)
+DELETE : Delete the user by that particular id(check that he/she still have issued book and check on the fines to be paid by him /her)
 
 ### /users/subscription-details/(id):
 
@@ -99,3 +98,17 @@ GET : Get all issued books with their fine
 #### npm run dev
 
 #### In the Thunder client to check the server we need to send request to the url : localhost:8081/
+
+---
+
+# Mongo DB
+
+## Non-relational DataBases
+
+## Relation => Table
+
+## Rows => Tuples
+
+## Columns => Attributes
+
+Data >> json format
