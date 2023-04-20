@@ -1,6 +1,13 @@
 //USER:
 const express = require("express");
 const {users} = require("../data/users.json");
+const {getAllUsers,
+getSingleUserById,
+createNewUser,
+updateUserData,
+deleteUser,
+getSubscriptionDetailsById} = require("../controllers/user-controller");
+const {UserModal,BookModal}  = require("../modals/index");
 const router = express.Router();
 
 /**
@@ -10,13 +17,15 @@ const router = express.Router();
  * Acess : public 
  * Parameters:None
  */
-
-router.get("/",(req,res)=>{
+//JSON APPROACH:
+/* router.get("/",(req,res)=>{
     res.status(200).json({
         sucess:true,
         data: users
     })
-})
+}) */
+//DataBase Approach
+router.get("/",getAllUsers);
 
 
 /**
@@ -26,7 +35,8 @@ router.get("/",(req,res)=>{
  * Acess : public 
  * Parameters:Id
  */
-router.get('/:id',(req,res)=>{
+//JSON APPROACH
+/* router.get('/:id',(req,res)=>{
     const {id} = req.params;
     const user = users.find((each)=>each.id === id);
     if(!user){
@@ -40,7 +50,9 @@ router.get('/:id',(req,res)=>{
         message: "User Found",
         data: user,
     });
-});
+}); */
+//DataBase Approach
+router.get('/:id',getSingleUserById);
 /**
  * Route:/users
  * Method:POST
@@ -48,8 +60,8 @@ router.get('/:id',(req,res)=>{
  * Acess : public 
  * Parameters:None
  */
-
-router.post("/",(req,res)=>{
+//JSON APPROACH:
+/* router.post("/",(req,res)=>{
     const {id,name,surname,email,subscriptionType,subscriptionDate} = req.body
     const user =users.find((each)=>each.id===id);
 
@@ -72,7 +84,9 @@ router.post("/",(req,res)=>{
         message: "User added sucessfully",
         data: users,
     })
-})
+}) */
+//DataBase Approach:
+router.post("/",createNewUser);
 
 /**
  * Route:/users/:id
@@ -81,7 +95,8 @@ router.post("/",(req,res)=>{
  * Acess : public 
  * Parameters:ID
  */
- router.put("/:id", (req, res) => {
+//JSON APPOROACH:
+ /* router.put("/:id", (req, res) => {
   const { id } = req.params;
   const { data } = req.body;
 
@@ -106,7 +121,9 @@ router.post("/",(req,res)=>{
     message: "User Updated !!",
     data: updateUserData,
   });
-});
+}); */
+//DataBase Approach:
+router.put("/:id",updateUserData );
 /**
  * Route:/users/:id
  * Method:DELETE
@@ -114,7 +131,7 @@ router.post("/",(req,res)=>{
  * Acess : public 
  * Parameters:ID
  */
-router.delete("/:id",(req,res)=>{
+/* router.delete("/:id",(req,res)=>{
     const {id} = req.params;
     const user = users.find((each)=>each.id===id);
     if(!user){
@@ -131,7 +148,9 @@ router.delete("/:id",(req,res)=>{
         message:"Deleted User....",
         data: users,
     })
-})
+}) */
+//DataBase Approach:
+router.delete("/:id",deleteUser)
 /**
  * Route:/users/subscription-details/:id
  * Method:GET
@@ -140,7 +159,7 @@ router.delete("/:id",(req,res)=>{
  * Parameters:ID
  */
 
-router.get("/subscription-details/:id", (req, res) => {
+/* router.get("/subscription-details/:id", (req, res) => {
   const { id } = req.params;
   const user = users.find((each) => each.id === id);
 
@@ -204,5 +223,8 @@ router.get("/subscription-details/:id", (req, res) => {
     data,
   });
 });
+ */
+//DataBase Approach:
+router.get("/subscription-details/:id", getSubscriptionDetailsById)
 
 module.exports = router;

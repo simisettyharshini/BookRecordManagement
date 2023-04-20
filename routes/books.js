@@ -1,20 +1,34 @@
 
-//BOOKS:
-
 const express = require("express");
+const { 
+  getAllBooks,
+  getSingleBookById ,
+  getAllIssuedBooks,
+  addNewBook,
+  updateBookById
+} = require("../controllers/book-controller");
+
 const { books } = require("../data/books.json");
 const { users } = require("../data/users.json");
+
+const {UserModal,BookModal}  = require("../modals/index");
+
 const router = express.Router();
 
 /**
+ // 2 
  * Route:/books/:id
  * Method:GET
  * Description :single users by their ids
  * Acess : public 
  * Parameters:Id
  */
+//DataBase Approach:
+router.get("/:id",getSingleBookById);
 
-router.get("/:id",(req,res)=>{
+/* 
+ //JSON Approach
+ router.get("/:id",(req,res)=>{
   const {id} = req.params;
   const book = books.find((each)=>each.id === id);
   if(!book){
@@ -28,15 +42,19 @@ router.get("/:id",(req,res)=>{
     message:"Book Found",
     data:book,
   });
-});
+}); */
+
+
 /**
+ //4
  * Route:/books/:id
  * Method:PUT
  * Description :Updating book by their id
  * Acess : public 
  * Parameters:ID
  */
- router.put("/:id", (req, res) => {
+// JSON APPROACH
+ /* router.put("/:id", (req, res) => {
   const { id } = req.params;
   const { data } = req.body;
 
@@ -61,9 +79,11 @@ router.get("/:id",(req,res)=>{
     message: "book Updated !!",
     data: updateBookData,
   });
-});
-
+}); */
+//DataBase Approach:
+router.put("/:id",updateBookById );
 /**
+ // 1
  * Route:/books
  * Method:GET
  * Description :Get all books
@@ -71,23 +91,30 @@ router.get("/:id",(req,res)=>{
  * Parameters:None
  */
 
+/* 
+//Json Approach
 router.get("/",(req,res)=>{
     res.status(200).json({
         sucess:true,
         data: books
     });
-});
+}); */
 
+// DataBase Approach
+router.get("/",getAllBooks);
 
 
 /**
+ //3
  * Route:/books
  * Method:POST
  * Description :Creating a new book
  * Acess : public 
  * Parameters:None
  */
-router.post("/",(req,res)=>{
+
+// JSON APPROACH
+/* router.post("/",(req,res)=>{
     const {id,name,author,genre,price,publisher} = req.body
     const book =books.find((each)=>each.id===id);
 
@@ -110,14 +137,20 @@ router.post("/",(req,res)=>{
         message: "Book added sucessfully",
         data: books,
     });
-});
+}); */
+// DataBase Approach
+router.post("/",addNewBook);
 /**
+ //5
  * Route: /books/issued
  * Method: GET
  * Description: Get all issued books
  * Access: Public
  * Parameters: None
  */
+/* 
+// JSON APPROACH
+
 router.get("/issued/by-user", (req, res) => {
   const usersWithTheIssuedBook = users.filter((each) => {
     if (each.issuedBook) return each;
@@ -144,14 +177,10 @@ router.get("/issued/by-user", (req, res) => {
     message: "Users With The Issued Books...",
     data: issuedBooks,
   });
-});
-/**
- * Route: /books/issued
- * Method: 
- * Description: Get all issued books
- * Access: Public
- * Parameters: None
- */
+}); */
+//DataBase Approach
+router.get("/issued/by-user", getAllIssuedBooks);
+
 
 
 

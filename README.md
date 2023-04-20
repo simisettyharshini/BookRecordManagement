@@ -112,3 +112,11 @@ GET : Get all issued books with their fine
 ## Columns => Attributes
 
 Data >> json format
+
+---
+
+MVC ARCH:
+
+> > M: Modal (It depicts the structure of a mongoDb Collection)
+> > V : View (wrt to front end (reactjs))
+> > C : Controllers(Brain or logical part of a route)
